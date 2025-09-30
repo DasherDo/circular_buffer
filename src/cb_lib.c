@@ -57,7 +57,7 @@ bool cb_push(int val)
 	return true;
 }
 
-// Removes the value at tail and returns it, -1 if ther is an error
+// Removes the value at tail and returns it, -1 if there is an error
 int cb_pop()
 {
 	if (!cb)
@@ -71,4 +71,28 @@ int cb_pop()
 	int val = cb->buffer[cb->tail];
 	move_tail();
 	return val;
+}
+
+// Returns the value at tail, returns -1 if there is an error
+int cb_peek()
+{
+	if (!cb)
+	{
+		return -1;
+	}
+	if (cb->is_empty)
+	{
+		return -1;
+	}
+	int val = cb->buffer[cb->tail];
+	return val;
+}
+
+// Prints the values of the cb between tail and head, excludes values popped
+void cb_print()
+{
+	for (int i = cb->tail; i < cb->head; i++)
+	{
+		printf("%d", cb->buffer[i]);
+	}
 }
