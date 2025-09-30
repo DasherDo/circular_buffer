@@ -42,4 +42,33 @@ static void move_tail()
 
 bool cb_push(int val)
 {
+	// Cannot push if there is no cb
+	if (!cb)
+	{
+		return false;
+	}
+	// Cannot push if the cb is full
+	if (cb->is_full)
+	{
+		return false;
+	}
+	cb->buffer[cb->head] = val;
+	move_head();
+	return true;
+}
+
+// Removes the value at tail and returns it, -1 if ther is an error
+int cb_pop()
+{
+	if (!cb)
+	{
+		return -1;
+	}
+	if (cb->is_empty)
+	{
+		return -1;
+	}
+	int val = cb->buffer[cb->tail];
+	move_tail();
+	return val;
 }
