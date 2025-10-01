@@ -2,8 +2,10 @@
 
 static circular_buffer_t *cb = NULL;
 
-circular_buffer_t cb_init(int size)
+void cb_init(int size)
 {
+
+	cb = malloc(sizeof(circular_buffer_t));
 	int *arr = malloc(sizeof(int) * size);
 
 	// Initialize arr to 0
@@ -12,16 +14,14 @@ circular_buffer_t cb_init(int size)
 		arr[i] = 0;
 	}
 
-	circular_buffer_t cb_init;
-	cb_init.buffer = arr;
-	cb_init.max_len = size;
-	cb_init.head = 0;
-	cb_init.tail = 0;
-	cb_init.is_full = false;
-	cb_init.is_empty = true;
-	cb = &cb_init;
+	cb->buffer = arr;
+	cb->max_len = size;
+	cb->head = 0;
+	cb->tail = 0;
+	cb->is_full = false;
+	cb->is_empty = true;
 
-	return cb_init;
+	// return cb_init;
 }
 
 static void move_head()
@@ -93,6 +93,24 @@ void cb_print()
 {
 	for (int i = cb->tail; i < cb->head; i++)
 	{
-		printf("%d", cb->buffer[i]);
+		printf("%d\r\n", cb->buffer[i]);
 	}
+}
+
+bool cb_is_empty()
+{
+	if (!cb)
+	{
+		return true;
+	}
+	return cb->is_empty;
+}
+
+bool cb_is_full()
+{
+	if (!cb)
+	{
+		return false;
+	}
+	return cb->is_full;
 }
