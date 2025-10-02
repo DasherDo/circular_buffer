@@ -11,4 +11,9 @@ void main()
 		cb_push(i);
 	}
 	cb_print();
+	while (!cb_is_empty())
+	{
+		int val = cb_pop();
+		printf("%d\r\n", val);
+	}
 }
